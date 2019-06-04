@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Game from './Game.js';
+import data from './data.js';
+import QuestionsContainer from './QuestionsContainer.js'
 
-function App() {
+class App extends React.Component {
+  myScore = (score) => (
+    score+=1
+  )
+
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Score: {this.myScore(0)}</p>
+      <Game score={data.questions}/>
+      <QuestionsContainer score={this.myScore()} question={data.questions} />
+      <input placeholder="Name"></input>
+      <button>Submit</button>
     </div>
   );
+  }
 }
-
 export default App;
