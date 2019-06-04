@@ -1,24 +1,34 @@
 import React from 'react';
 import './App.css';
-import Game from './Game.js';
 import data from './data.js';
 import QuestionsContainer from './QuestionsContainer.js'
 
-class App extends React.Component {
-  myScore = (score) => (
-    score+=1
-  )
+export default class App extends React.Component {
+
+  state = {
+    inProgress: false
+  }
+
+  newGame = (e) => {
+    this.setState({
+      inProgress: true
+    })
+  }
 
   render(){
-  return (
-    <div className="App">
-      <p>Score: {this.myScore(0)}</p>
-      <Game score={data.questions}/>
-      <QuestionsContainer score={this.myScore()} question={data.questions} />
-      <input placeholder="Name"></input>
-      <button>Submit</button>
-    </div>
-  );
+    return (
+      <div className="App">
+        <h1>Lutrivia</h1>
+        {
+          !this.state.inProgress ? <button onClick={this.newGame}>New Game</button> : null
+        }
+        {
+          this.state.inProgress ? <QuestionsContainer question={data.questions} /> : null
+        }
+        {
+          this.state.inProgress ? <form><input placeholder="Name" /><input type="submit"/></form> : null
+        }
+      </div>
+    );
   }
 }
-export default App;

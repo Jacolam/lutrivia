@@ -2,22 +2,26 @@ import React from 'react';
 import './App.css';
 import Question from './Question.js'
 
-class QuestionsContainer extends React.Component{
+export default class QuestionsContainer extends React.Component{
+
+  state = {
+    score: 0
+  }
 
   allQuestions = (questions)=>(
     questions.map(q=>(
-      <Question score={this.props.score} text={q.text} answer={q.answer} />
+      <Question score={this.state.score} text={q.text} answer={q.answer} />
     ))
   )
+
   render(){
-  return (
-    <div>
-      <ul>
-        {this.allQuestions(this.props.question)}
-      </ul>
-    </div>
-  );
+    return (
+      <div>
+        <p>Score: {this.state.score}</p>
+        <ul>
+          {this.allQuestions(this.props.question).slice(0,5)}
+        </ul>
+      </div>
+    );
   }
 }
-
-export default QuestionsContainer;

@@ -1,22 +1,32 @@
 import React from 'react';
 import './App.css';
-import Game from './Game.js'
-import App from './App.js'
 
 class Question extends React.Component{
 
-  addScore = (answer) => (
-    console.log((this.props.answer === answer) ? 1 : 0)
-  )
+  myScore = this.props.score
+
+  addScore = (e) => {
+    if (e.target.value === this.props.answer.toString()) {
+      this.setState({
+        score: this.myScore+=1
+      })
+      e.target.style.backgroundColor = 'green'
+    } else {
+      this.setState({
+        score: this.myScore+=0
+      })
+      e.target.style.backgroundColor = 'red'
+    }
+  }
 
   render(){
-    console.log(this.props.score)
     return (
       <div>
         {this.props.text}
         <p></p>
-        <button onClick={()=>this.addScore(true)}>true</button>
-        <button onClick={()=>this.addScore(false)}>false</button>
+        <button value="true" onClick={this.addScore}>true</button>
+        <button value="false" onClick={this.addScore}>false</button>
+        {this.myScore}
       </div>
     )
   }
